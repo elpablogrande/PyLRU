@@ -1,6 +1,11 @@
 # PyLRU
 Scalable LRU algorithm in Python 2.7
 
+To run: 
+`python pylru.py`
+
+To extend, import 
+
 #How it works:
 
 The purpose of the design is to manage rank quickly and at any scale, avoiding any scans of the entire cache.
@@ -45,3 +50,5 @@ In cases of a read or update to a given existing key:
 (the mother of all F*ups, but time is limited...)
 
 My main assumption here is that Python doesn't perform a full scan when looking up a key in a dictionary, but instead has a fast algorithm. I'll be looking into this. The intention of this design was to take advantage of the key-lookup capabilities of Python dictionaries and the FIFO capabilities of Python lists. It works, but does it scale? Stay tuned.
+
+Also assuming all future implementation goes according to design; e.g., nobody extending this writes code that inserts records into *keymap* in the incorrect order. I didn't take the time to build in fail-safes. 
