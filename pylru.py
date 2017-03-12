@@ -17,7 +17,6 @@ while run_loop:
 
     # Parse command
     command_list = string.split(raw_input())
-    #print(command_list)
 
     # validate command
     try:
