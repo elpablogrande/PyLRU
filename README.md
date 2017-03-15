@@ -1,5 +1,5 @@
 # PyLRU
-Scalable LRU algorithm in Python 2.7
+LRU algorithm in Python 2.7
 
 To run: 
 `python pylru.py`
