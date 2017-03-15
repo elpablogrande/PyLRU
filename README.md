@@ -52,3 +52,16 @@ In cases of a read or update to a given existing key:
 My main assumption here is that Python doesn't perform a full scan when looking up a key in a dictionary, but instead has a fast algorithm. I'll be looking into this. The intention of this design was to take advantage of the key-lookup capabilities of Python dictionaries and the FIFO capabilities of Python lists. It works, but does it scale? Stay tuned.
 
 Also assuming all future implementation goes according to design; e.g., nobody extending this writes code that inserts records into *keymap* in the incorrect order. I didn't take the time to build in fail-safes.
+
+**Update 3/15/17:**
+
+In regards to assumptions and performance, I found this page: https://wiki.python.org/moin/TimeComplexity
+
+In hindsight, I think there's room for improvement in the algorithm's performance at scale.
+Here's my quick and dirty analysis:
+
+* I've read some anecdotal claims that Python dictionary operations get slow when the dictionary exceeds roughly 5 million records.
+* My guess is that this is due to hash collision resolution - I presume that this is the reason why the page above lists amortized worst-case performance as linear while average is O(1). The larger the cache, the higher the probability of collisions. So in summary, Python dictionary operations are fast at small scale and slow at large scale.
+* Both the Set and Get methods perform at least two operations on the dictionary, so that will be a limiting factor.
+* If I've done my work right, the find_keymap_ordinal method is a binary search and should perform as O(log(n)) - But it depends on dictionary operations.
+
